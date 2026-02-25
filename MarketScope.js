@@ -28,7 +28,7 @@ async function research(name, url, onStep) {
 
   onStep("step4");
 
-  const comps = s1.competitors.map(comp => {
+  const comps = (Array.isArray(s1?.competitors) ? s1.competitors : []).map(comp => {
     const si = (s2.competitor_shares||[]).find(s => s.name.toLowerCase().includes(comp.name.toLowerCase()) || comp.name.toLowerCase().includes(s.name.toLowerCase()));
     const sh = si?.estimated_share_pct || (comp.estimated_revenue_millions && s2.tam_billions ? +(comp.estimated_revenue_millions/(s2.tam_billions*1000)*100).toFixed(1) : null);
     return { name:comp.name, description:comp.description, share:sh, revenue:comp.estimated_revenue_millions, employees:comp.estimated_employees, type:comp.type==="direct"?(sh&&sh>15?"Leader":sh&&sh>5?"Challenger":"Competitor"):comp.type==="emerging"?"Emerging":"Adjacent", differentiator:comp.key_differentiator };
