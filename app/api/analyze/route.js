@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const MODEL = "claude-3-sonnet-20240229";
+const MODEL = "claude-3-haiku-latest";
 
 async function callClaudeJSON(system, user) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -188,5 +188,6 @@ Rules:
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
 }
+
 
 
